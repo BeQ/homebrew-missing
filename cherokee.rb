@@ -15,6 +15,11 @@ class Cherokee < Formula
   end
 
   depends_on 'gettext'
+  
+  def patches
+    # OSX 10.9 patch
+    'https://github.com/cherokee/webserver/commit/d0213768fdc6cf3aee61fe0be398d7825c01198f.patch'
+  end
 
   def install
     if build.head?
@@ -30,26 +35,22 @@ class Cherokee < Formula
                 "--sysconfdir=#{etc}",
                 "--localstatedir=#{var}/cherokee",
                 "--with-wwwuser=#{ENV['USER']}",
-                "--with-wwwgroup=staff",
+                "--with-wwwgroup=www",
                 "--enable-internal-pcre",
                 # Don't install to /Library
-                "--with-wwwroot=/srv/www/localhost"
+                "--with-wwwroot=#{etc}/cherokee/htdocs",
+                "--with-cgiroot=#{etc}/cherokee/cgi-bin"
     system "make install"
 
     prefix.install "org.cherokee.webserver.plist"
     (prefix+'org.cherokee.webserver.plist').chmod 0644
     (share+'cherokee/admin/server.py').chmod 0755
   end
-  
-  def patches
-    # OSX 10.9 patch
-    'https://github.com/BeQ/webserver/commit/88f1c71dfed348926176550c413ba56ab14ca588.patch'
-  end
 
   def caveats
     <<-EOS.undent
       Cherokee is setup to run with your user permissions as part of the
-      'staff' group on port 80. This can be changed in the cherokee-admin
+      www group on port 80. This can be changed in the cherokee-admin
       but be aware the new user will need permissions to write to:
         #{var}/cherokee
       for logging and runtime files.
