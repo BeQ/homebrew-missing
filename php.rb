@@ -142,5 +142,8 @@ class Php < Formula
                 "--disable-cgi",
                 "--with-readline=shared,#{HOMEBREW_PREFIX}/opt/readline"
     system 'make install'
+    
+    puts "Install Xdebug:"
+    system 'pecl install xdebug'
   end
 end
