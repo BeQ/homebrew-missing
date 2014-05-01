@@ -4,11 +4,11 @@ require 'formula'
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-class Php < Formula
+class PhpFPM < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.5.7.tar.bz2/from/this/mirror'
-  sha1 'f32ccf1a2aa0592e2dcc151c89a7a811e53e0925'
-  version '5.5.7'
+  url 'http://uk1.php.net/get/php-5.5.12.tar.bz2/from/this/mirror'
+  sha1 'eaa0b27368f98af2fa9aa6f08d7ea23bdb53c748'
+  version '5.5.12'
   
   depends_on :autoconf
   depends_on :automake
@@ -68,10 +68,11 @@ class Php < Formula
       "--with-zlib=shared",
       "--with-bz2=shared",
       "--with-curl=shared",
-      "--with-xpm-dir=#{HOMEBREW_PREFIX}",
       "--with-jpeg-dir=#{HOMEBREW_PREFIX}",
       "--with-png-dir=#{HOMEBREW_PREFIX}",
-      "--with-freetype-dir=/opt/X11",
+      "--with-freetype-dir=#{HOMEBREW_PREFIX}",
+      #"--with-freetype-dir=/opt/X11",
+      #"--with-xpm-dir=/opt/X11",
       "--with-gmp=shared",
       "--enable-hash=shared",
       "--with-iconv=shared",
@@ -91,7 +92,7 @@ class Php < Formula
       "--with-mysql=shared,mysqlnd",
       "--with-mysqli=shared,mysqlnd",
       "--enable-pdo",
-      "--with-pdo-pgsql=shared,/Applications/Postgres.app/Contents/MacOS/bin",
+      "--with-pdo-pgsql=shared,/Applications/Postgres.app/Contents/Versions/9.3/bin",
       "--with-pdo-mysql=shared,mysqlnd",
       "--with-pdo-sqlite=shared",
       "--enable-zip=shared",
@@ -117,8 +118,9 @@ class Php < Formula
       "--with-icu-dir=#{HOMEBREW_PREFIX}/opt/icu4c",
     ]
     
+=begin
+=end
     puts 'Set environment:'
-    
     system 'export EXTRA_LIBS="-lstdc++ -lresolv"'
     system 'export MACOSX_DEPLOYMENT_TARGET="10.9"'
     system 'export CFLAGS="-arch x86_64 -g -O3 -pipe -no-cpp-precomp"'
@@ -127,23 +129,12 @@ class Php < Formula
     system 'export LDFLAGS="-arch x86_64 -bind_at_load"'
     system 'export ARCHFLAGS="-arch x86_64"'
     system 'export PATH=/usr/local/mysql/bin:$PATH'
+
     
-    puts "Install PHP #{version} FPM:"
+
+        
+    puts "Install PHP #{version} FPM & FastCGI:"
     system './configure', *args
     system 'make install'
-    
-    puts "Install PHP #{version} CLI:"
-    system 'make clean && rm -f config.cache && ./configure',
-                "--prefix=#{prefix}",
-                "--mandir=#{man}",
-                "--sysconfdir=#{etc}/php/cli",
-                "--with-config-file-path=#{etc}/php/cli",
-                "--with-config-file-scan-dir=#{etc}/php/cli/ext",
-                "--disable-cgi",
-                "--with-readline=shared,#{HOMEBREW_PREFIX}/opt/readline"
-    system 'make install'
-    
-    puts "Install Xdebug:"
-    system 'pecl install xdebug'
   end
 end
