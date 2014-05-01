@@ -116,6 +116,7 @@ class PhpFpm < Formula
       "--with-gettext=shared,#{HOMEBREW_PREFIX}/opt/gettext",
       "--enable-intl=shared,#{HOMEBREW_PREFIX}/opt/gettext",
       "--with-icu-dir=#{HOMEBREW_PREFIX}/opt/icu4c",
+      "--enable-mysqlnd",
     ]
     
 =begin

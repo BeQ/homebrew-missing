@@ -40,6 +40,7 @@ class PhpCli < Formula
                 "--with-config-file-path=#{etc}/php/cli",
                 "--with-config-file-scan-dir=#{etc}/php/cli/ext",
                 "--disable-cgi",
+                "--enable-mysqlnd",
                 "--with-readline=shared,#{HOMEBREW_PREFIX}/opt/readline"
     system 'make install'
     
