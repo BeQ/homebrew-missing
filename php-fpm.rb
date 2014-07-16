@@ -6,9 +6,9 @@ require 'formula'
 
 class PhpFpm < Formula
   homepage 'http://php.net'
-  url 'http://uk1.php.net/get/php-5.5.12.tar.bz2/from/this/mirror'
-  sha1 'eaa0b27368f98af2fa9aa6f08d7ea23bdb53c748'
-  version '5.5.12'
+  url 'http://php.net/get/php-5.5.14.tar.bz2/from/this/mirror'
+  sha1 '062d351da165aa0568e4d8cbc53a18d73b99f49a'
+  version '5.5.14'
   
   depends_on :autoconf
   depends_on :automake
