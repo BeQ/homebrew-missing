@@ -131,11 +131,14 @@ class PhpFpm < Formula
     system 'export ARCHFLAGS="-arch x86_64"'
     system 'export PATH=/usr/local/mysql/bin:$PATH'
 
-    
-
         
     puts "Install PHP #{version} FPM & FastCGI:"
     system './configure', *args
     system 'make install'
+  end
+  
+  def post_install
+    puts "Create log directory"
+    system "mkdir -p #{prefix}/var/log"
   end
 end
