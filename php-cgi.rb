@@ -4,7 +4,7 @@ require 'formula'
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-class PhpFpm < Formula
+class PhpCgi < Formula
   homepage 'http://php.net'
   url 'http://php.net/get/php-5.5.14.tar.bz2/from/this/mirror'
   sha1 '062d351da165aa0568e4d8cbc53a18d73b99f49a'
